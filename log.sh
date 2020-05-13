@@ -2,6 +2,9 @@
 master_IP="192.168.1.101"
 slave_IP="192.168.1.61"
 
+pwd
+cd ~/adrv9009_fmcomms8_sync_test_bash
+pwd
 acq_per_run=3
 
 if [ -f "nr_runs.txt" ]; then
@@ -33,5 +36,5 @@ done
 
 echo $total_runs>nr_runs.txt
 
-python3 PDU.py 192.168.0.224 8 delayedReboot
-#poweroff
+python3 PDU.py 192.168.0.224 1 delayedReboot
+poweroff
