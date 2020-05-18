@@ -16,3 +16,17 @@ cat /sys/devices/platform/fpga-axi\@0/84a50000.axi-jesd204-rx/lane4_info>>$file
 cat /sys/devices/platform/fpga-axi\@0/84a50000.axi-jesd204-rx/lane5_info>>$file
 cat /sys/devices/platform/fpga-axi\@0/84a50000.axi-jesd204-rx/lane6_info>>$file
 cat /sys/devices/platform/fpga-axi\@0/84a50000.axi-jesd204-rx/lane7_info>>$file
+
+echo >>$file
+echo "***talise temperatures:">>$file
+iio_attr -q -c adrv9009-phy temp0 input>>$file
+iio_attr -q -c adrv9009-phy-b temp0 input>>$file
+iio_attr -q -c adrv9009-phy-c temp0 input>>$file
+iio_attr -q -c adrv9009-phy-d temp0 input>>$file
+ 
+echo >>$file
+echo "***HMC7044 VCO regs som fm8 car:">>$file
+iio_reg hmc7044 0x8c>>$file
+iio_reg hmc7044-fmc 0x8c>>$file
+iio_reg hmc7044-car 0x8c>>$file
+
