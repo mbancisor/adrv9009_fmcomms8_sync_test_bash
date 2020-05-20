@@ -54,6 +54,8 @@ empty_status = {
     "SYSREF captured": "n/a",
     "SYSREF alignment error": "n/a",
     "lanes": [],
+    "temps": [],
+    "regs": [],
 }
 empty_lane_status = {
     "Errors": "n/a",
@@ -112,7 +114,9 @@ def parse_jesd_string(jesd_content):
         del sample_status
         sample_status = empty_status.copy()
 
-        row = row.split("Errors")
+        sample_content = re.split("\*\*\*",row)
+
+        row = re.split("Errors",sample_content[0])
         if len(row) == 1:
             continue
 
@@ -135,9 +139,7 @@ def parse_jesd_string(jesd_content):
         print("----")
         all_lane_status = row[1:]
         i=0
-        if count==2000:
-            print(count)
-            pass
+
         for lane_status in all_lane_status:
             lane_status = "Errors" + lane_status
             sample_status["lanes"].append(empty_lane_status.copy())
@@ -146,11 +148,22 @@ def parse_jesd_string(jesd_content):
             )
             i=i+1
 
+        #print(sample_content[1:])
+        temps=sample_content[1].split(":")[1]
+        temps=temps.split()
+        sample_status["temps"] = []
+        for temp in temps:
+            sample_status["temps"].append(temp)
+        regs = sample_content[2].split(":")[1]
+        regs = regs.split()
+        sample_status["regs"] = []
+        for reg in regs:
+            sample_status["regs"].append(reg)
+
         print(len(sample_status["lanes"]))
         jesd_data.append(sample_status)
         count = count + 1
         print("Processed", count)
-        # split by first occurence of ERRORS
     print("done")
     return jesd_data
 
@@ -171,12 +184,19 @@ def main():
         jesd_data_flat[i] = jesd_data[i].copy()
         # Flatten lanes
         del jesd_data_flat[i]["lanes"]
-        if(i==2000):
-            print(i)
         for j, lane in enumerate(jesd_data[i]["lanes"]):
             for field in lane:
                 new_field_name = "Lane_" + str(j) + "_" + field
                 jesd_data_flat[i][new_field_name] = jesd_data[i]["lanes"][j][field]
+
+        for j, temp in enumerate(jesd_data[i]["temps"]):
+                new_field_name = "Temp_" + str(j)
+                jesd_data_flat[i][new_field_name] = jesd_data[i]["temps"][j]
+
+        for j, reg in enumerate(jesd_data[i]["regs"]):
+                new_field_name = "Reg_" + str(j)
+                jesd_data_flat[i][new_field_name] = jesd_data[i]["regs"][j]
+
 
     # Get phase information
     j = 0
