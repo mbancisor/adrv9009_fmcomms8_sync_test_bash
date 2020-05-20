@@ -35,6 +35,7 @@ log_jesd_path = "log_jesd.txt"
 log_csv_path = "log.csv"
 
 empty_data_frame = {
+    "cnt": 0,
     "timestamp": "n/a",
     "phase": [],
     "jesd_status": {},
@@ -45,6 +46,7 @@ empty_status = {
     "Link": "n/a",
     "Measured Link Clock": "n/a",
     "Reported Link Clock": "n/a",
+    "External reset": "n/a",
     "Lane rate": "n/a",
     "Lane rate / 40": "n/a",
     "LMFC rate": "n/a",
@@ -121,7 +123,9 @@ def parse_jesd_string(jesd_content):
         for line in status.split("\n"):
             if len(line) > 2:
                 outlines.append(line)
-        assert len(outlines) == 9, "Unhandled status case"
+        #assert len(outlines) == 9, "Unhandled status case"
+        if len(outlines)!=9:
+            print("ERROR")
         status = "\n".join(outlines)
         sample_status = parse_str(sample_status, status)
 
@@ -182,6 +186,7 @@ def main():
         data_frame = empty_data_frame.copy()
         del data_frame["phase"]
         sample = sample.split(",")
+        data_frame["cnt"] = j*3+i
         data_frame["timestamp"] = float(sample[0].strip())
         for k, ph in enumerate(sample[1:]):
             ph.strip()
@@ -215,13 +220,13 @@ def main():
 
 
     df["Lane_0_Errors"] = df["Lane_0_Errors"].astype(int)
-    df.plot(kind='line',x='timestamp',y='phase_0',ax=ax)
-    df.plot(kind='line',x='timestamp',y='phase_1', color='red', ax=ax)
-    df.plot(kind='line', x='timestamp', y='phase_2', ax=ax)
-    df.plot(kind='line', x='timestamp', y='Lane_0_Errors', ax=ax) # ar trebui multiple y axis aici
+    df.plot(kind='line',x='cnt',y='phase_0',ax=ax)
+    df.plot(kind='line',x='cnt',y='phase_1', color='red', ax=ax)
+    df.plot(kind='line', x='cnt', y='phase_2', ax=ax)
+    df.plot(kind='line', x='cnt', y='Lane_0_Errors', ax=ax) # ar trebui multiple y axis aici
     #df.plot(kind='line', x='timestamp', y='Lane_0_Errors',  ax=ax)
 
-    cursor = SnaptoCursor(ax, df["timestamp"], df["phase_0"])
+    cursor = SnaptoCursor(ax, df["cnt"], df["phase_0"])
     cid = plt.connect('motion_notify_event', cursor.mouse_move)
 
 
