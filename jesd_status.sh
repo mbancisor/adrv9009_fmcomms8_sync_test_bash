@@ -30,3 +30,9 @@ iio_reg hmc7044 0x8c>>$file
 iio_reg hmc7044-fmc 0x8c>>$file
 iio_reg hmc7044-car 0x8c>>$file
 
+echo >>$file
+echo "***talise LOs:">>$file
+iio_attr -c -q adrv9009-phy TRX_LO frequency>>$file
+iio_attr -c -q adrv9009-phy-b TRX_LO frequency>>$file
+iio_attr -c -q adrv9009-phy-c TRX_LO frequency>>$file
+iio_attr -c -q adrv9009-phy-d TRX_LO frequency>>$file
