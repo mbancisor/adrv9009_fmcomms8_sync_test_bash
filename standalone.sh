@@ -76,6 +76,8 @@ buffers=1024
 	iio_attr -c axi-adrv9009-tx-hpc TX1_I_F1 frequency 5000000
 	iio_attr -c axi-adrv9009-tx-hpc TX1_Q_F1 frequency 5000000
 
+	iio_attr -c axi-adrv9009-tx-hpc TX1_I_F2 scale 0
+	iio_attr -c axi-adrv9009-tx-hpc TX1_Q_F2 scale 0
 # MCS
 	# 16 pulses on pulse generator request
 	iio_reg hmc7044 0x5a 5
@@ -97,15 +99,15 @@ buffers=1024
 	sleep 0.5
 		
 	# step 3 & 4
-	iio_attr  -q -d adrv9009-phy multichip_sync 3 # >/dev/null 2>&1
-	iio_attr  -q -d adrv9009-phy-b multichip_sync 3 # >/dev/null 2>&1
-	iio_attr  -q -d adrv9009-phy-c multichip_sync 3 # >/dev/null 2>&1
-	iio_attr  -q -d adrv9009-phy-d multichip_sync 3 # >/dev/null 2>&1
+	iio_attr  -q -d adrv9009-phy multichip_sync 3 >/dev/null 2>&1
+	iio_attr  -q -d adrv9009-phy-b multichip_sync 3 >/dev/null 2>&1
+	iio_attr  -q -d adrv9009-phy-c multichip_sync 3 >/dev/null 2>&1
+	iio_attr  -q -d adrv9009-phy-d multichip_sync 3 >/dev/null 2>&1
 		
-	iio_attr  -q -d adrv9009-phy multichip_sync 4 # >/dev/null 2>&1
-	iio_attr  -q -d adrv9009-phy-b multichip_sync 4 # >/dev/null 2>&1
-	iio_attr  -q -d adrv9009-phy-c multichip_sync 4 # >/dev/null 2>&1
-	iio_attr  -q -d adrv9009-phy-d multichip_sync 4 # >/dev/null 2>&1
+	iio_attr  -q -d adrv9009-phy multichip_sync 4 >/dev/null 2>&1
+	iio_attr  -q -d adrv9009-phy-b multichip_sync 4 >/dev/null 2>&1
+	iio_attr  -q -d adrv9009-phy-c multichip_sync 4 >/dev/null 2>&1
+	iio_attr  -q -d adrv9009-phy-d multichip_sync 4 >/dev/null 2>&1
 	
 	# step 5
 	iio_attr -q -d hmc7044-car sysref_request 1
@@ -156,12 +158,12 @@ buffers=1024
 	sleep 0.1
 	iio_attr -q -d hmc7044-car sysref_request 1
 	sleep 1
-	iio_attr -q -d hmc7044-car sysref_request 1
-	sleep 1
-	iio_attr -q -d hmc7044-car sysref_request 1
-	sleep 1
-	iio_attr -q -d hmc7044-car sysref_request 1
-	sleep 1	
+#	iio_attr -q -d hmc7044-car sysref_request 1
+#	sleep 1
+#	iio_attr -q -d hmc7044-car sysref_request 1
+#	sleep 1
+#	iio_attr -q -d hmc7044-car sysref_request 1
+#	sleep 1	
 
 #DMA ARM -- NOT needed in single FPGA system
 
