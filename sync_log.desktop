@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=test-jig-tool
+Comment=test-jig-tool
+Exec=sudo xfce4-terminal --hold -x /home/analog/adrv9009_fmcomms8_sync_test_bash/auto_log.sh
+OnlyShowIn=XFCE;LXDE
+StartupNotify=false
+Terminal=false
+Hidden=false
