@@ -36,3 +36,10 @@ iio_attr -c -q adrv9009-phy TRX_LO frequency>>$file
 iio_attr -c -q adrv9009-phy-b TRX_LO frequency>>$file
 iio_attr -c -q adrv9009-phy-c TRX_LO frequency>>$file
 iio_attr -c -q adrv9009-phy-d TRX_LO frequency>>$file
+
+echo >>$file
+echo "***talise reg 0x181:">>$file
+iio_reg adrv9009-phy 0x181>>$file
+iio_reg adrv9009-phy-b 0x181>>$file
+iio_reg adrv9009-phy-c 0x181>>$file
+iio_reg adrv9009-phy-d 0x181>>$file

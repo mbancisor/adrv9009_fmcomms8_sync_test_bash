@@ -26,6 +26,8 @@ do
         wait
 	./jesd_status.sh $(((total_runs)*acq_per_run))
 	wait
+	./dmesg_status.sh $(((total_runs)*acq_per_run))
+	wait
 	./standalone_data.sh
 	wait
         ./standalone_data.sh
