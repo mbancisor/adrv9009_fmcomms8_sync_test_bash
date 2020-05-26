@@ -3,4 +3,5 @@ logs/
 *.dat
 nr_runs.txt
 log_jesd.txt
+.ipynb_checkpoints
 
