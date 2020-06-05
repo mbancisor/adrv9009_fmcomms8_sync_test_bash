@@ -17,7 +17,7 @@ buffers=1024
 # Unsync -- sleep -> wake up
 
 	iio_reg hmc7044 0x1 0x61
-	iio_reg hmc7044-fmc 0x1 0x01
+	iio_reg hmc7044-fmc 0x1 0x61
 	iio_reg hmc7044-car 0x1 0x61
 	sleep 0.1
 	iio_reg hmc7044-car 0x1 0x60
@@ -153,7 +153,8 @@ buffers=1024
 	iio_attr  -q -d adrv9009-phy-b calibrate 1 >/dev/null 2>&1
 	iio_attr  -q -d adrv9009-phy-c calibrate_rx_phase_correction_en 1 >/dev/null 2>&1
 	iio_attr  -q -d adrv9009-phy-c calibrate 1 >/dev/null 2>&1
-
+	iio_attr  -q -d adrv9009-phy-d calibrate_rx_phase_correction_en 1 >/dev/null 2>&1
+	iio_attr  -q -d adrv9009-phy-d calibrate 1 >/dev/null 2>&1
 	#send one more sysref pulse in order to get initial frame sync??????	
 	sleep 0.1
 	iio_attr -q -d hmc7044-car sysref_request 1
